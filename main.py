@@ -16,8 +16,11 @@ def whatsapp_automation():
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto("https://web.whatsapp.com")
-        page.wait_for_selector("canvas", timeout=60000)
-        page.locator("canvas").screenshot(path=qr_path)
+        try:
+            page.wait_for_selector("canvas", timeout=60000)
+            page.locator("canvas").screenshot(path=qr_path)
+        except Exception:
+            page.screenshot(path=qr_path)
         time.sleep(60)
         session_active = True
         browser.close()
